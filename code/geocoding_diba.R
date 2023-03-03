@@ -1,50 +1,30 @@
 ## GEOCODING BUSINESSES W/O COORDINATES
 # Database: Diputació de Barcelona
-
+# AQUÍ VEIEM QUE HI HA MASSA DIVERSITAT I NO HI HA DIVISIÓ. PER TANT, S'HA DE FILTRAR PEL TIPUS D'EQUIPAMENT SEU I AFEGIR-HI KEY-VALUE.
 
 library(tidyverse)
 library(tidygeocoder)
+library(sf)
+library(httr)
+library(jsonlite)
+library(osmdata)
+source("code/get_filter_bbox.R")
+
+bbox <- get_filter_bbox("Santpedor", transform = TRUE)
+
+#### ORIGINAL STUFF-####
+
+url <- paste0("https://do.diba.cat/api/dataset/establiments/","camp-utm_x-greaterequal/",bbox[2], 
+              "/camp-utm_x-lowerequal/", bbox[4],
+              "/camp-utm_y-greaterequal/", bbox[1],
+              "/camp-utm_y-lowerequal/", bbox[3])
 
 
-
-diba <- unzip(read_csv("data/diba_negocis_2022_11_23_def.csv"))
-
-# these are the addresses to be geocoded - they need to have a full address
-diba_nocoords <- diba[(is.na(diba$lat)|is.na(diba$lon)) & !is.na(diba$`Adreça completa`),]
-
-# keeping the ones w/o an address just in case
-diba_noaddress <- diba[is.na(diba$`Adreça completa`),]
-
-# geocoding coordinates
-geo_diba_nocoords <- geo(address = diba_nocoords$`Adreça completa`,method = "arcgis")
-
-geo_diba_nocoords <- geo_diba_nocoords[!(is.na(geo_diba_nocoords$lat)) &
-                                           !(is.na(geo_diba_nocoords$long)),]
-# put coordinates into the original df
+establiments <- GET(url) |> 
+  content(as = "text") |> 
+  fromJSON()
+establiments <- establiments$elements
+establiments <- establiments |> 
+  unnest(adreca)
 
 
-diba_nocoords2 <- diba_nocoords |> 
-  select(-c(lat,lon)) |> 
-  inner_join(geo_diba_nocoords, by = c("Adreça completa" = "address")) |> 
-  rename("lon" = "long") |> 
-  distinct()
-
-
-# make definitive df. It returns all rows with both address and coordinates (Removes all we could not geocode)
-
-
-diba_def <- diba |> 
-  filter(!(`_id` %in% diba_nocoords$`_id`) &
-           !(`_id` %in% diba_noaddress$`_id`)) |> 
-  bind_rows(diba_nocoords2)
-
-
-# export
-write_csv(diba_def, "output/cens_activitat_comercial_diba_clean.csv")
-
-# zip
-zip("output/cens_activitat_comercial_diba_clean.zip",
-    "output/cens_activitat_comercial_diba_clean.csv")
-
-# remove original
-file.remove("output/cens_activitat_comercial_diba_clean.csv")
