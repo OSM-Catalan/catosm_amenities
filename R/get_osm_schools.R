@@ -8,7 +8,8 @@ library(sf)
 #' @returns A sf or tibble with all schools in the desired place.
 #' @export
 get_osm_schools <- function(place, is_sf = TRUE){
-  schools <- add_osm_features(opq = opq(paste0(place, ", Spain")), features = list("amenity" = "school",
+  schools <- add_osm_features(opq = opq(paste0(place, ", Spain")), 
+                              features = list("amenity" = "school",
                                   "amenity" = "kindergarten",
                                   "amenity" = "music_school",
                                   "amenity" = "dancing_school",
