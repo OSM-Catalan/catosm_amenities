@@ -21,5 +21,6 @@ Imports:
     tmaptools,
     osmdata,
     httr,
-    jsonlite
+    jsonlite,
+    rvest
 Depends: R (>= 4.0.0)
