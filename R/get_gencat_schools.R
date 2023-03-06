@@ -22,13 +22,14 @@ get_gencat_schools <- function(place, is_sf = TRUE){
     content(as = "text") |> 
     fromJSON()
   # change column names to fit with osm keys
+  if(is_sf == TRUE) schools <- st_as_sf(schools, coords = c("coordenades_geo_x", "coordenades_geo_y"), crs = "EPSG:4326")
+  else schools <- select(schools, -c(coordenades_geo_x, coordenades_geo_y))
   schools <- schools |> 
     select(-c(curs, codi_titularitat, codi_naturalesa, 
               codi_delegaci, nom_delegaci, codi_comarca,
               codi_municipi, codi_municipi_6, 
               codi_localitat, codi_districte_municipal, 
-              nom_comarca, zona_educativa,
-              coordenades_geo_x, coordenades_geo_y)) |> # kill columns we do not need
+              nom_comarca, zona_educativa)) |> # kill columns we do not need
     rename("operator" = "nom_titularitat",
            "name" = "denominaci_completa",
            "ref" = "codi_centre",
@@ -55,6 +56,7 @@ get_gencat_schools <- function(place, is_sf = TRUE){
     unnest(cols = Cycle) |> 
     mutate(Cycle = str_to_lower(Cycle))
   schools_isced <- schools |> 
+    st_drop_geometry() |> 
     select(any_of(c("ref", eqs$Cycle))) |> 
     pivot_longer(-ref,
                  names_to = "level_name",

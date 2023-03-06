@@ -8,7 +8,7 @@ library(sf)
 #' @returns A sf or tibble with all schools in the desired place.
 #' @export
 get_osm_schools <- function(place, is_sf = TRUE){
-  schools <- add_osm_features(opq = opq(paste0(place, ", Spain")), 
+  schools <- add_osm_features(opq = opq(paste0(place, ", Spain"), osm_types="nwr"), 
                               features = list("amenity" = "school",
                                   "amenity" = "kindergarten",
                                   "amenity" = "music_school",
@@ -85,7 +85,8 @@ get_osm_schools <- function(place, is_sf = TRUE){
                                      "addr:street", "addr:housenumber", "contact:email", 
                                      "contact:fax", "contact:phone", "website",
                                      "wheelchair", "wikidata", "name:etimology:wikidata")))
-      schools <- bind_rows(schools_p, schools_mp, schools_pol)      
+      schools <- bind_rows(schools_p, schools_mp, schools_pol) |> 
+        mutate(geometry = st_centroid(geometry))
     }
   }  
   else {
@@ -99,7 +100,8 @@ get_osm_schools <- function(place, is_sf = TRUE){
                                "addr:street", "addr:housenumber", "contact:email", 
                                "contact:fax", "contact:phone", "website",
                                "wheelchair", "wikidata", "name:etimology:wikidata")))
-    }
+  }
+  schools <- filter(schools, !is.na(amenity))
 
   return(schools)
 }
