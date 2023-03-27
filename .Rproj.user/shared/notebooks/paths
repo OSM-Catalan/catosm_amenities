@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 C:/Users/mbosc/.gitconfig="5A313097"
 C:/Users/mbosc/OneDrive/Documentos/catosm_amenities/DESCRIPTION="3A04D74C"
 C:/Users/mbosc/OneDrive/Documentos/catosm_amenities/NAMESPACE="7BDF88AA"
 C:/Users/mbosc/OneDrive/Documentos/catosm_amenities/R/get_all_schools.R="AC8EC308"
 C:/Users/mbosc/OneDrive/Documentos/catosm_amenities/R/get_gencat_schools.R="82F03C06"
+=======
+/home/marc/.Renviron="9914B9E7"
+/home/marc/Documents/catosmamenities/data-raw/DATASET.R="19C639B1"
+/home/marc/Documents/catosmamenities/data-raw/categories_equipaments_gencat.csv="680AFA79"
+/home/marc/Documents/catosmamenities/data-raw/correspondences.R="A7C68C28"
+>>>>>>> 89dd8ab2f9146240c66d2988015f2ce3f6603a31
