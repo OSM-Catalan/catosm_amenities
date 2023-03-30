@@ -1,6 +1,16 @@
-salut_be |> as_tibble()
-head(as_tibble(select(salut_be, propietats)), 20)
+library(tidyverse)
+library(httr)
+library(lubridate)
+library(jsonlite)
+baseurl <- "https://analisi.transparenciacatalunya.cat/resource/8gmd-gz7i.json?$query="
+query <- "SELECT propietats WHERE propietats LIKE '%Horari%' LIMIT 10000"
+query <- str_replace_all(query, "%","%25")
+query <- str_replace_all(query, "'", "%27")
+query <- str_replace_all(query," ","%20")
+
+horaris <- GET(paste0(baseurl, query)) |> 
+  content(as = "text") |> 
+  fromJSON()
 
 
-hours <- sapply(salut_be$propietats, \(x) str_extract_all(x, "[\\d{1,2}][:]?[\\d{2}]?"), USE.NAMES = FALSE)
-hours
+horaris |> write.csv("~/horaris.csv")
