@@ -15,8 +15,7 @@ get_osm_healthcare <- function(place, is_sf = TRUE){
                                               "amenity" = "doctors",
                                               "amenity" = "hospital",
                                               "healthcare" = "clinic",
-                                              "healthcare" = "hospital",
-                                              "amenity" = "language_school"))
+                                              "healthcare" = "hospital"))
   cols_to_select <- c("name", "name:ca", "ref", 
                       "amenity", "healthcare", "healthcare:counselling", "healthcare:speciality",
                       "operator", "operator:type", "addr:city", "addr:place", "addr:suburb", 
