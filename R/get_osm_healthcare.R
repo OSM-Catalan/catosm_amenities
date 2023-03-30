@@ -2,7 +2,7 @@ library(tidyverse)
 library(osmdata)
 library(sf)
 #' @title get_osm_healthcare
-#' @description get all healthcare amenities registered in openstreetma from a municipality or comarca in Catalonia in either sf or table format
+#' @description get all healthcare amenities except for farmacies registered in openstreetma from a municipality or comarca in Catalonia in either sf or table format
 #' @param place character. name of the place for which to get healthcare - municipality or comarca
 #' @param is_sf logical. If true, returns sf table. If false, a tibble.
 #' @returns A sf or tibble with all healthcare in the desired place.
@@ -13,7 +13,6 @@ get_osm_healthcare <- function(place, is_sf = TRUE){
   healthcare <- add_osm_features(opq = opq(paste0(place, ", Spain"), osm_types="nwr"), 
                               features = list("amenity" = "clinic",
                                               "amenity" = "doctors",
-                                              "amenity" = "pharmacy",
                                               "amenity" = "hospital",
                                               "healthcare" = "clinic",
                                               "healthcare" = "hospital",

@@ -15,5 +15,5 @@ get_osm_healthcare(place, is_sf = TRUE)
 A sf or tibble with all healthcare in the desired place.
 }
 \description{
-get all healthcare amenities registered in openstreetma from a municipality or comarca in Catalonia in either sf or table format
+get all healthcare amenities except for farmacies registered in openstreetma from a municipality or comarca in Catalonia in either sf or table format
 }
