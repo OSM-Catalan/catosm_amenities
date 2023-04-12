@@ -5,7 +5,7 @@ Authors@R:
     person("Marc", "Bosch Matas", , "mboschmatas@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: This package downloads certain types of amenities both from OpenStreetMap and from official sources from the Catalan government or local authorities in Catalonia in order to compare it, identify missing objects or complete existing ones.
-License: `use_gpl3_license()`
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
