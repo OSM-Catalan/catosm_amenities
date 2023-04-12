@@ -1,6 +1,5 @@
 library(tidyverse)
-library(osmdata)
-library(sf)
+
 #' @title get_osm_schools
 #' @description get all schools registered in openstreetmap from a municipality or comarca in Catalonia in either sf or table format
 #' @param place character. name of the place for which to get schools - municipality or comarca
@@ -8,14 +7,14 @@ library(sf)
 #' @returns A sf or tibble with all schools in the desired place.
 #' @export
 get_osm_schools <- function(place, is_sf = TRUE){
-  schools <- add_osm_features(opq = opq(paste0(place, ", Spain"), osm_types="nwr"), 
+  schools <- osmdata::add_osm_features(opq = osmdata::opq(paste0(place, ", Spain"), osm_types="nwr"), 
                               features = list("amenity" = "school",
                                   "amenity" = "kindergarten",
                                   "amenity" = "music_school",
                                   "amenity" = "dancing_school",
                                   "amenity" = "language_school"))
   if(is_sf == TRUE) {
-    schools <- osmdata_sf(schools)
+    schools <- osmdata::osmdata_sf(schools)
     schools_p <- schools$osm_points
     schools_pol <- schools$osm_polygons
     schools_mp <- schools$osm_multipolygons
@@ -86,12 +85,11 @@ get_osm_schools <- function(place, is_sf = TRUE){
                                      "contact:fax", "contact:phone", "website",
                                      "wheelchair", "wikidata", "name:etimology:wikidata")))
       schools <- bind_rows(schools_p, schools_mp, schools_pol) |> 
-        mutate(geometry = st_centroid(geometry))
+        mutate(geometry = sf::st_centroid(geometry))
     }
   }  
   else {
-    schools <- 
-    osmdata_data_frame(schools)
+    schools <- osmdata::osmdata_data_frame(schools)
     schools <- select(schools,
                       any_of(c("name", "name:ca", "ref", 
                                "school", "isced:level", "min_age", "max_age",
