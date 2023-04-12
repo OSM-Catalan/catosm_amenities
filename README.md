@@ -19,11 +19,11 @@ L'objectiu és fer una sèrie de funcions que permetin comparar objectes d'OSM e
 
 1) Funció per filtrar equipaments de la Generalitat a un bbox creat amb ```osmdata```
 2) Funció per geocodificar comerços de la base de dades de la Diputació de Barcelona.
-
+3) Donar equivalències entre les categories de les bases de dades i les claus i valors d'OSM.
+4) Funció per obtenir escoles d'OSM i la Generalitat i comparar les dades.
+5) Funció per a obtenir centres de salut d'OSM i de la Generalitat. Queda per fer la funció per comparar-les.
 ## COSES A FER
 
-1) Donar equivalències entre les categories de les bases de dades i les claus i valors d'OSM.
-2) Fer funcions per baixar les dades de les fonts estudiades a partir d'una query feta amb ```osmdata```
-3) Fer visualitzacions ràpides per comparar.
-4) Fer taules amb els objectes de les dues fonts
+1) Preparar prototip App.
+2) Funcions per descarregar universitats, policia, serveis socials, farmàcies i altres equipaments.
 
