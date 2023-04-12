@@ -19,7 +19,7 @@ Imports:
     sf,
     tmap,
     tmaptools,
-    osmdata,
+    osmdata (>= 0.2),
     httr,
     jsonlite,
     rvest
