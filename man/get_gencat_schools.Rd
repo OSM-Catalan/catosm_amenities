@@ -12,7 +12,7 @@ get_gencat_schools(place, is_sf = TRUE)
 \item{is_sf}{logical. If true, returns sf table. If false, a tibble.}
 }
 \value{
-A sf or tibble with all schools in the desired place.
+A sf or tibble with all schools in the desired place. If it returns a tibble, it will return all schools in the bbox of the selected place, not filtering by polygon
 }
 \description{
 get all schools from the Catalan Government overpass from a municipality or comarca in Catalonia in either sf or table format

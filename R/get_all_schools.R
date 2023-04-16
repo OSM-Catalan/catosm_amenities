@@ -5,10 +5,15 @@ library(tidyverse)
 #' @param place character. name of the place for which to get schools - municipality or comarca
 #' @param plot logical. If true,returns a list with an interactive tmap plot with both sources plotted and a data.frame. If false, only a data.frame
 #' @returns A tibble with all schools or a list with said tibble and a map.
+#' @import dplyr
+#' @import sf
+#' @import tidyr
+#' @import tmap
+#' @import tidyselect
 #' @export
 get_all_schools <- function(place, plot = TRUE){
-  osm_schools <- get_osm_schools(place, is_sf = TRUE)
-  gencat_schools <- get_gencat_schools(place, is_sf = TRUE)
+  osm_schools <- catosmamenities::get_osm_schools(place, is_sf = TRUE)
+  gencat_schools <- catosmamenities::get_gencat_schools(place, is_sf = TRUE)
   osm_schools_df <- osm_schools |> 
     sf::st_drop_geometry()
   colnames(osm_schools_df) <- sapply(colnames(osm_schools_df), 
@@ -17,10 +22,10 @@ get_all_schools <- function(place, plot = TRUE){
     sf::st_drop_geometry()
   colnames(gencat_schools_df) <- sapply(colnames(gencat_schools_df), 
                                      \(x) ifelse(x %in% c("ref", "source:date"), x, paste0("gencat_",x)))
-  all_schools <- full_join(gencat_schools_df, osm_schools_df, by = "ref") |> 
-    distinct()
+  all_schools <- dplyr::full_join(gencat_schools_df, osm_schools_df, by = "ref") |> 
+    dplyr::distinct()
   all_schools <- all_schools |> 
-    select(any_of(c("ref", "source:date", "osm_name", "osm_name:ca", "gencat_name",
+    dplyr::select(tidyselect::any_of(c("ref", "source:date", "osm_name", "osm_name:ca", "gencat_name",
                     "osm_amenity", "gencat_amenity",
                     "osm_school", "gencat_school", "osm_isced:level", "gencat_isced:level",
                     "osm_min_age", "gencat_min_age", "osm_max_age", "gencat_max_age", "osm_operator",

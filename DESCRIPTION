@@ -10,8 +10,6 @@ Description: This package downloads certain types of amenities both from
     local authorities in Catalonia in order to compare it, identify
     missing objects or complete existing ones.
 License: GPL (>= 3)
-Depends: 
-    R (>= 4.0.0)
 Imports: 
     cli,
     glue,
@@ -29,7 +27,8 @@ Imports:
     httr,
     jsonlite,
     rvest
-Depends: R (>= 4.0.0)
+Depends:
+    R (>= 4.0.0),
     withr
 Suggests: 
     testthat (>= 3.0.0)
