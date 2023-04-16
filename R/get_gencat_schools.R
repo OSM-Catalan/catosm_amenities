@@ -1,9 +1,4 @@
-library(osmdata)
-library(sf)
-library(jsonlite)
-library(httr)
 library(tidyverse)
-library(rvest)
 
 #' @title get_gencat_schools
 #' @description get all schools from the Catalan Government overpass from a municipality or comarca in Catalonia in either sf or table format
@@ -18,11 +13,11 @@ get_gencat_schools <- function(place, is_sf = TRUE){
   
   query <- paste0("SELECT * WHERE curs='2022/2023' AND coordenades_geo_x >= ",bbox[2], " AND coordenades_geo_x <= ",bbox[4]," AND coordenades_geo_y >= ",bbox[1], " AND coordenades_geo_y <= ",bbox[3])
   query <- str_replace_all(query," ","%20")
-  schools <- GET(paste0(baseurl,query)) |> 
-    content(as = "text") |> 
-    fromJSON()
+  schools <- httr::GET(paste0(baseurl,query)) |> 
+    httr::content(as = "text") |> 
+    jsonlite::fromJSON()
   # change column names to fit with osm keys
-  if(is_sf == TRUE) schools <- st_as_sf(schools, coords = c("coordenades_geo_x", "coordenades_geo_y"), crs = "EPSG:4326")
+  if(is_sf == TRUE) schools <- sf::st_as_sf(schools, coords = c("coordenades_geo_x", "coordenades_geo_y"), crs = "EPSG:4326")
   else schools <- select(schools, -c(coordenades_geo_x, coordenades_geo_y))
   schools <- schools |> 
     select(-c(curs, codi_titularitat, codi_naturalesa, 
@@ -48,15 +43,15 @@ get_gencat_schools <- function(place, is_sf = TRUE){
            "operator:type" = ifelse(nom_naturalesa == "Públic", "public", "private"))
   # get table with isced codes and kinds of school
   eqs <- "https://wiki.openstreetmap.org/wiki/Import_schools_in_Catalunya" |> 
-    read_html() |> 
-    html_nodes(xpath = '/html/body/div[3]/div[3]/div[5]/div[1]/table[2]') |> 
-    html_table()
+    rvest::read_html() |> 
+    rvest::html_elements(xpath = '/html/body/div[3]/div[3]/div[5]/div[1]/table[2]') |> 
+    rvest::html_table()
   eqs <- eqs[[1]] |> 
     mutate(Cycle = str_split(Cycle, ", ")) |> 
     unnest(cols = Cycle) |> 
     mutate(Cycle = str_to_lower(Cycle))
   schools_isced <- schools |> 
-    st_drop_geometry() |> 
+    sf::st_drop_geometry() |> 
     select(any_of(c("ref", eqs$Cycle))) |> 
     pivot_longer(-ref,
                  names_to = "level_name",
