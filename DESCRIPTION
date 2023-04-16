@@ -1,22 +1,28 @@
 Package: catosmamenities
-Title: Download amenities from official Catalan sources and compare with OSM
+Title: Download amenities from official Catalan sources and compare with
+    OSM
 Version: 0.0.0.9000
 Authors@R: 
     person("Marc", "Bosch Matas", , "mboschmatas@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: This package downloads certain types of amenities both from OpenStreetMap and from official sources from the Catalan government or local authorities in Catalonia in order to compare it, identify missing objects or complete existing ones.
-License: `use_gpl3_license()`
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+Description: This package downloads certain types of amenities both from
+    OpenStreetMap and from official sources from the Catalan government or
+    local authorities in Catalonia in order to compare it, identify
+    missing objects or complete existing ones.
+License: GPL (>= 3)
+Depends: 
+    R (>= 4.0.0)
 Imports: 
     cli,
     glue,
+    httr,
+    jsonlite,
     lifecycle,
+    osmdata,
     rlang,
-    withr,
-    tidyverse,
+    rvest,
     sf,
+    tidyverse,
     tmap,
     tmaptools,
     osmdata (>= 0.2),
@@ -24,7 +30,11 @@ Imports:
     jsonlite,
     rvest
 Depends: R (>= 4.0.0)
+    withr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

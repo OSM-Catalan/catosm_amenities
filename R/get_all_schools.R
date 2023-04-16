@@ -1,6 +1,5 @@
 library(tidyverse)
-library(osmdata)
-library(sf)
+
 #' @title get_all_schools
 #' @description get all schools registered in openstreetmapand the Catalan government from a municipality or comarca in Cataloniamat
 #' @param place character. name of the place for which to get schools - municipality or comarca
@@ -8,14 +7,14 @@ library(sf)
 #' @returns A tibble with all schools or a list with said tibble and a map.
 #' @export
 get_all_schools <- function(place, plot = TRUE){
-  osm_schools <- catosmamenities::get_osm_schools(place, is_sf = TRUE)
-  gencat_schools <- catosmamenities::get_gencat_schools(place, is_sf = TRUE)
+  osm_schools <- get_osm_schools(place, is_sf = TRUE)
+  gencat_schools <- get_gencat_schools(place, is_sf = TRUE)
   osm_schools_df <- osm_schools |> 
-    st_drop_geometry()
+    sf::st_drop_geometry()
   colnames(osm_schools_df) <- sapply(colnames(osm_schools_df), 
                                      \(x) ifelse(x == "ref", x, paste0("osm_",x)))
   gencat_schools_df <- gencat_schools |> 
-    st_drop_geometry()
+    sf::st_drop_geometry()
   colnames(gencat_schools_df) <- sapply(colnames(gencat_schools_df), 
                                      \(x) ifelse(x %in% c("ref", "source:date"), x, paste0("gencat_",x)))
   all_schools <- full_join(gencat_schools_df, osm_schools_df, by = "ref") |> 
@@ -33,16 +32,15 @@ get_all_schools <- function(place, plot = TRUE){
                     "osm_contact:phone", "gencat_contact:phone", "osm_website", "gencat_website",
                     "osm_wheelchair", "osm_wikidata")))
   if(plot == TRUE){
-    tmap_mode("view")
-    plot <- tm_shape(mutate(osm_schools, source = "OSM")) + 
-      tm_symbols(shape = 16,
+    tmap::tmap_mode("view")
+    plot <- tmap::tm_shape(mutate(osm_schools, source = "OSM")) + 
+      tmap::tm_symbols(shape = 16,
                  col = "blue") + 
-      tm_shape(mutate(gencat_schools, source = "GENCAT")) + 
-      tm_symbols(shape = 18,
+      tmap::tm_shape(mutate(gencat_schools, source = "GENCAT")) + 
+      tmap::tm_symbols(shape = 18,
                  col = "red")
     return(list(plot = plot, df = all_schools))
   }
-  else return(all_schools)
-
-    
+  else
+    return(all_schools)
 }
