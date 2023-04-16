@@ -7,7 +7,8 @@ library(tidyverse)
 #' @returns A sf or tibble with all schools in the desired place.
 #' @export
 get_osm_schools <- function(place, is_sf = TRUE){
-  schools <- osmdata::add_osm_features(opq = osmdata::opq(paste0(place, ", Spain"), osm_types="nwr"), 
+  bbox <- osmdata::getbb(paste0(place, ", Catalunya"), format_out = "osm_type_id")
+  schools <- osmdata::add_osm_features(opq = osmdata::opq(bbox, osm_types="nwr"),
                               features = list("amenity" = "school",
                                   "amenity" = "kindergarten",
                                   "amenity" = "music_school",

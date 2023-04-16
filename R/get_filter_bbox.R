@@ -8,7 +8,7 @@ library(tidyverse)
 #' @returns A vector with the relevant place bbox
 #' @export
 get_filter_bbox <- function(place, transform = FALSE, end_crs = "EPSG:25831"){
-  place <- paste0(place, ", Spain")
+  place <- paste0(place, ", Catalunya")
   if(transform == FALSE){
     
     opq <- osmdata::opq(place)
