@@ -25,6 +25,11 @@ Imports:
     tidyverse,
     tmap,
     tmaptools,
+    osmdata (>= 0.2),
+    httr,
+    jsonlite,
+    rvest
+Depends: R (>= 4.0.0)
     withr
 Suggests: 
     testthat (>= 3.0.0)
