@@ -8,7 +8,7 @@
 #'   \item categoria_3. Optional tertiary category of amenity
 #'   \item key. Corresponding OSM key
 #'   \item value. Corresponding OSM value.
-#'
+#'}
 #' @docType data
 #' @keywords datasets
 #' @name correspondences
