@@ -1,7 +1,7 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-.tar.gz
-catosmamenities.Rcheck
-catosmamenities_0.0.090000.tar.gz
+*.Rproj.user
+*.Rhistory
+*.RData
+*.Ruserdata
+*.tar.gz
+*.Rcheck
+*.log

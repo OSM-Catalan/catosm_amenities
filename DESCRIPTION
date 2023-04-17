@@ -3,15 +3,13 @@ Title: Download amenities from official Catalan sources and compare with
     OSM
 Version: 0.0.0.9000
 Authors@R: 
-    person("Marc", "Bosch Matas", , "mboschmatas@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Marc", "Bosch Matas", , "mboschmatas@gmail.com", role = c("aut", "cre"))
 Description: This package downloads certain types of amenities both from
     OpenStreetMap and from official sources from the Catalan government or
     local authorities in Catalonia in order to compare it, identify
     missing objects or complete existing ones.
 License: GPL (>= 3)
 Imports: 
-    cli,
     glue,
     httr,
     jsonlite,
@@ -20,17 +18,12 @@ Imports:
     rlang,
     rvest,
     sf,
-    tidyverse,
     dplyr,
     tidyr,
     tidyselect,
     tmap,
-    tmaptools,
     stringr,
-    osmdata (>= 0.2),
-    httr,
-    jsonlite,
-    rvest
+    osmdata (>= 0.2)
 Depends:
     R (>= 4.0.0),
     withr

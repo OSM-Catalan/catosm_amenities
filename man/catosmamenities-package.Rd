@@ -9,7 +9,7 @@
 This package downloads certain types of amenities both from OpenStreetMap and from official sources from the Catalan government or local authorities in Catalonia in order to compare it, identify missing objects or complete existing ones.
 }
 \author{
-\strong{Maintainer}: Marc Bosch Matas \email{mboschmatas@gmail.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Marc Bosch Matas \email{mboschmatas@gmail.com}
 
 }
 \keyword{internal}
