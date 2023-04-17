@@ -51,7 +51,7 @@ get_gencat_schools <- function(place, is_sf = TRUE){
            "contact:phone" = paste0("+34", `contact:phone`),
            "addr:street" = str_extract(adre_a, "^[^\\,]+"),
            "addr:housenumber" = str_extract(adre_a, "[^\\, ]+$"),
-           "operator:type" = ifelse(nom_naturalesa == "Públic", "public", "private"))
+           "operator:type" = ifelse(nom_naturalesa == "P\u00fablic", "public", "private"))
   # get table with isced codes and kinds of school
   eqs <- "https://wiki.openstreetmap.org/wiki/Import_schools_in_Catalunya" |> 
     rvest::read_html() |> 
