@@ -1,5 +1,3 @@
-library(tidyverse)
-
 #' @title get_all_schools
 #' @description get all schools registered in openstreetmapand the Catalan government from a municipality or comarca in Cataloniamat
 #' @param place character. name of the place for which to get schools - municipality or comarca

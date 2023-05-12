@@ -1,5 +1,3 @@
-library(tidyverse)
-
 #' @title get_filter_bbox
 #' @description get a bbox for filtering rest apis
 #' @param place character. name of the place for which to find bbox - municipality or comarca
