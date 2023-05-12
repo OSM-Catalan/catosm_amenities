@@ -4,5 +4,9 @@
 *.Ruserdata
 *.tar.gz
 *.Rcheck
+<<<<<<< HEAD
 *.log
 .Rproj.user
+=======
+*.log
+>>>>>>> 5737e638e85fbb493aa0457262fbe925f9a260be
