@@ -1,5 +1,6 @@
 require(testthat)
-devtools::load_all()
+require(devtools)
+require(catosmamenities)
 context("Check that all detected amenities correspond to the expected types")
 df <- get_all_schools("Palafrugell", plot = FALSE)
 
